@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.restrentcarproject.mapper.CarsMapper">
+
+    <resultMap id="MyMap" type="com.example.restrentcarproject.model.Cars">
+        <result property="id" column="id"/>
+        <collection property="cars" javaType="list" column="id"
+                    ofType="string"/>
+    </resultMap>
+
+    <select id="selectAllCars" resultType="Cars">
+        select *
+        from "CarsModel"."CarsName"
+    </select>
+
+    <select id="getAllLogin" resultType="Admin">
+        select *
+        from "login"."UsersLogin"
+        where "login"."UsersLogin"."login" = #{username}
+    </select>
+
+    <insert id="insertUser" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO "authorization"."UsersData" (name, surname, birthday, passid, balance, timearent,carsid)
+        VALUES (#{name}, #{surname},#{birthday},#{passid},#{balance},#{timearent},#{carsid})
+    </insert>
+
+    <select id="selectAllUsers" resultType="Users">
+        select "authorization"."UsersData".*,
+               "CarsModel"."CarsName"."name" AS nameCars,
+               "CarsModel"."CarsName"."model",
+               "CarsModel"."CarsName"."price"
+        from "authorization"."UsersData"
+                 INNER JOIN "CarsModel"."CarsName" ON
+            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id";
+    </select>
+
+    <select id="selectCarById" resultType="Cars">
+        select * from "CarsModel"."CarsName" where id=#{id};
+    </select>
+
+    <select id="selectUsersId" resultType="Users">
+        select * from "authorization"."UsersData" where id=#{id};
+    </select>
+
+    <select id="carsId" resultType="Cars">
+        SELECT "cars_names"."name", "cars_names"."model"
+        FROM "authorization"."UsersData" AS "users",
+             "CarsModel"."CarsName" AS "cars_names"
+             where "users"."carsid" = #{carsid};
+    </select>
+
+    <update id="updateDamage">
+        UPDATE "authorization"."UsersData"
+        SET damage = 'damage.png'
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateDamagenull">
+        UPDATE "authorization"."UsersData"
+        SET damage = ''
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateReason" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
+        UPDATE "authorization"."UsersData"
+        SET deviations = #{deviations}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateReasonNull" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
+        UPDATE "authorization"."UsersData"
+        SET deviations = ''
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteUser">
+        DELETE
+        FROM "authorization"."UsersData"
+        WHERE "authorization"."UsersData"."id" = #{id}
+    </delete>
+
+</mapper>

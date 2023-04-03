@@ -1,0 +1,19 @@
+package com.example.restrentcarproject.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Cars {
+
+    @Id
+    public Long id;
+    public Long price;
+    public String name;
+    public String model;
+    public String image;
+}
