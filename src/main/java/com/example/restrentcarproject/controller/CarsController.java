@@ -88,14 +88,4 @@ public class CarsController {
                 : 0;
     }
 // ? Это if // : Это else
-
-//    @PutMapping("/cars/damageButton")
-//    public boolean damageButton(@RequestParam("id") Long id,@RequestBody String jsonString) throws JsonProcessingException {
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode jsonNode = mapper.readTree(jsonString);
-//
-//        Boolean disbalance = jsonNode.path("param").path("disbalance").asBoolean();
-//
-//        return ca
-//    }
 }
