@@ -26,8 +26,6 @@ public interface CarsMapper {
 
     Admin getAllLogin(@Param("username") String username);
 
-    List<Cars> carsId(@Param("carsid") Long carsid);
-
     boolean updateDamage(@Param("id") Long id);
 
     boolean updateDamagenull(@Param("id") Long id);
