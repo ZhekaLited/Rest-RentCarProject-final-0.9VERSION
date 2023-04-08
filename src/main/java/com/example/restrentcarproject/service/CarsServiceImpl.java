@@ -65,9 +65,4 @@ public class CarsServiceImpl implements CarsService {
     public boolean updateBalance(Long id, Long balance,boolean disbalance) {
         return carsDao.updateBalance(id,balance,disbalance);
     }
-
-    @Override
-    public boolean updateDamageButton(Long id, boolean disbalance) {
-        return carsDao.updateDamageButton(id,disbalance);
-    }
 }
