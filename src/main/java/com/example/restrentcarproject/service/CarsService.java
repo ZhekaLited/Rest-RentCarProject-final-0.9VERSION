@@ -28,5 +28,9 @@ public interface CarsService {
 
     boolean updateDamagenull(Long id);
 
-    boolean updateReason(Long id,String deviations);
+    boolean updateReason(Long id,String deviations,boolean disbalance);
+
+    boolean updateBalance(Long id,Long balance,boolean disbalance);
+
+    boolean updateDamageButton(Long id,boolean disbalance);
 }

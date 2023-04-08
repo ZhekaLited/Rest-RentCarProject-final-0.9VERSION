@@ -59,7 +59,17 @@ public class CarsDaoImpl implements CarsDAO {
     }
 
     @Override
-    public boolean updateReason(Long id,String deviations) {
-        return carsMapper.updateReason(id,deviations);
+    public boolean updateReason(Long id,String deviations,boolean disbalance) {
+        return carsMapper.updateReason(id,deviations,disbalance);
+    }
+
+    @Override
+    public boolean updateBalance(Long id, Long balance,boolean disbalance) {
+        return carsMapper.updateBalance(id,balance,disbalance);
+    }
+
+    @Override
+    public boolean updateDamageButton(Long id, boolean disbalance) {
+        return carsMapper.updateDamageButton(id,disbalance);
     }
 }

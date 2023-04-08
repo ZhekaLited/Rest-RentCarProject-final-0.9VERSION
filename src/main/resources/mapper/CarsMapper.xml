@@ -63,13 +63,21 @@
 
     <update id="updateReason" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
         UPDATE "authorization"."UsersData"
-        SET deviations = #{deviations}
+        SET deviations = #{deviations},
+            disbalance = #{disbalance}
         WHERE id = #{id};
     </update>
 
-    <update id="updateReasonNull" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
+    <update id="updateBalance" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
         UPDATE "authorization"."UsersData"
-        SET deviations = ''
+        SET balance = #{balance},
+            disbalance = #{disbalance}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateDamageButton" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
+        UPDATE "authorization"."UsersData"
+        SET disbalance = #{disbalance}
         WHERE id = #{id};
     </update>
 

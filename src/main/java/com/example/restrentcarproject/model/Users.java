@@ -27,4 +27,5 @@ public class Users {
     public Long price;
     public String damage;
     public String deviations;
+    public boolean disbalance;
 }

@@ -5,7 +5,6 @@ import com.example.restrentcarproject.model.Cars;
 import com.example.restrentcarproject.model.Users;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -33,6 +32,10 @@ public interface CarsMapper {
 
     boolean updateDamagenull(@Param("id") Long id);
 
-    boolean updateReason(@Param("id") Long id,@RequestBody String deviations);
+    boolean updateReason(@Param("id") Long id,@RequestBody String deviations,boolean disbalance);
+
+    boolean updateBalance(@Param("id") Long id,@RequestBody Long balance, boolean disbalance);
+
+    boolean updateDamageButton(@Param("id") Long id,boolean disbalance);
 
 }
