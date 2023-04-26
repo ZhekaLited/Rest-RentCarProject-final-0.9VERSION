@@ -19,9 +19,40 @@
         where "login"."UsersLogin"."login" = #{username}
     </select>
 
+    <select id="getUser" resultType="Users">
+        select "authorization"."UsersData".*,
+               "CarsModel"."CarsName"."name" AS nameCars,
+               "CarsModel"."CarsName"."model",
+               "CarsModel"."CarsName"."price"
+        from "authorization"."UsersData"
+                 INNER JOIN "CarsModel"."CarsName" ON
+            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id"
+        where userid = #{userid};
+</select>
+
     <insert id="insertUser" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
-        INSERT INTO "authorization"."UsersData" (name, surname, birthday, passid, balance, timearent,carsid)
-        VALUES (#{name}, #{surname},#{birthday},#{passid},#{balance},#{timearent},#{carsid})
+        INSERT INTO "authorization"."UsersData" (name, surname, birthday, passid, balance, timearent,carsid,userid,status)
+        VALUES (#{name}, #{surname},#{birthday},#{passid},#{balance},#{timearent},#{carsid},#{userid},'answer.png')
+    </insert>
+
+    <select id="getRoleName" resultType="Admin">
+        select "login"."UsersLogin"."id","login"."UsersLogin"."role" from "login"."UsersLogin" where id = #{id}
+    </select>
+
+    <select id="findForLogin" resultType="Admin">
+        select * from "login"."UsersLogin" where login = #{login}
+    </select>
+
+   <select id="invalid" resultType="Admin">
+        select * from "login"."UsersLogin" where login = #{login}
+    </select>
+
+    <insert id="insertAccount" parameterType="Admin" useGeneratedKeys="false" keyProperty="id">
+        insert into "login"."UsersLogin"(login,password,role) values (#{login},#{password},'USER')
+    </insert>
+
+    <insert id="insertAdmin" parameterType="Admin" useGeneratedKeys="false" keyProperty="id">
+        insert into "login"."UsersLogin"(login,password,role) values (#{login},#{password},'ADMIN')
     </insert>
 
     <select id="selectAllUsers" resultType="Users">
@@ -36,6 +67,14 @@
 
     <select id="selectCarById" resultType="Cars">
         select * from "CarsModel"."CarsName" where id=#{id};
+    </select>
+
+    <select id="selectCarImages" resultType="ImageCars">
+        select "CarsImage"."ImageCars"."carsimage"
+        from "CarsModel"."CarsName"
+                 INNER JOIN "CarsImage"."ImageCars" ON
+            "CarsModel"."CarsName"."id" = "CarsImage"."ImageCars"."carid"
+        where "CarsModel"."CarsName"."id"=#{id};
     </select>
 
     <select id="selectUsersId" resultType="Users">
@@ -64,20 +103,16 @@
     <update id="updateReason" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
         UPDATE "authorization"."UsersData"
         SET deviations = #{deviations},
-            disbalance = #{disbalance}
+            disbalance = #{disbalance},
+            status = 'reject.png'
         WHERE id = #{id};
     </update>
 
     <update id="updateBalance" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
         UPDATE "authorization"."UsersData"
         SET balance = #{balance},
-            disbalance = #{disbalance}
-        WHERE id = #{id};
-    </update>
-
-    <update id="updateDamageButton" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
-        UPDATE "authorization"."UsersData"
-        SET disbalance = #{disbalance}
+            disbalance = #{disbalance},
+            status = 'suc.png'
         WHERE id = #{id};
     </update>
 

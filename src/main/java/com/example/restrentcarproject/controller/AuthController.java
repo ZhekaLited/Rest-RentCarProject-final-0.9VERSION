@@ -29,8 +29,7 @@ public class AuthController {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getLogin(),
-                            authRequest.getPassword())
-            );
+                            authRequest.getPassword()));
         } catch (Exception ex) {
             throw new Exception("inavalid username/password");
         }

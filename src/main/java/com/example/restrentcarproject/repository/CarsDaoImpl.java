@@ -3,6 +3,7 @@ package com.example.restrentcarproject.repository;
 import com.example.restrentcarproject.mapper.CarsMapper;
 import com.example.restrentcarproject.model.Admin;
 import com.example.restrentcarproject.model.Cars;
+import com.example.restrentcarproject.model.ImageCars;
 import com.example.restrentcarproject.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -69,7 +70,42 @@ public class CarsDaoImpl implements CarsDAO {
     }
 
     @Override
-    public boolean updateDamageButton(Long id, boolean disbalance) {
-        return carsMapper.updateDamageButton(id,disbalance);
+    public ImageCars[] selectCarImages(Long id) {
+        return carsMapper.selectCarImages(id);
+    }
+
+    @Override
+    public boolean insertAccount(String login,String password) {
+        return carsMapper.insertAccount(login,password);
+    }
+
+    @Override
+    public boolean insertAdmin(String login, String password) {
+        return carsMapper.insertAdmin(login,password);
+    }
+
+    @Override
+    public Admin getRoleName(Long id) {
+        return carsMapper.getRoleName(id);
+    }
+
+    @Override
+    public List<Admin> findForLogin(String login,String password) {
+        return carsMapper.findForLogin(login,password);
+    }
+
+    @Override
+    public Users selectUsersId(Long id) {
+        return carsMapper.selectUsersId(id);
+    }
+
+    @Override
+    public Admin invalid(String body) {
+        return carsMapper.invalid(body);
+    }
+
+    @Override
+    public Users getUser(Long userid) {
+        return carsMapper.getUser(userid);
     }
 }

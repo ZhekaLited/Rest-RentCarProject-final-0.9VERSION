@@ -8,16 +8,8 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cars {
-
+public class ImageCars {
     @Id
     public Long id;
-    public Long price;
-    public String name;
-    public String model;
-    public String image;
-    public String release;
-    public String kpp;
-    public String dvigatel;
-    public String mesta;
+    public String carsimage;
 }

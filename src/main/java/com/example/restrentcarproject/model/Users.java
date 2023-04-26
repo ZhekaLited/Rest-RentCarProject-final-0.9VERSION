@@ -28,4 +28,6 @@ public class Users {
     public String damage;
     public String deviations;
     public boolean disbalance;
+    public Long userid;
+    public String status;
 }

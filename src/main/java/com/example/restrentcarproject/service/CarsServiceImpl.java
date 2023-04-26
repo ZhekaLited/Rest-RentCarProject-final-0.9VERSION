@@ -2,6 +2,7 @@ package com.example.restrentcarproject.service;
 
 import com.example.restrentcarproject.model.Admin;
 import com.example.restrentcarproject.model.Cars;
+import com.example.restrentcarproject.model.ImageCars;
 import com.example.restrentcarproject.model.Users;
 import com.example.restrentcarproject.repository.CarsDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,42 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public boolean updateDamageButton(Long id, boolean disbalance) {
-        return carsDao.updateDamageButton(id,disbalance);
+    public ImageCars[] selectCarImages(Long id) {
+        return carsDao.selectCarImages(id);
+    }
+
+    @Override
+    public boolean insertAccount(String login,String password) {
+        return carsDao.insertAccount(login,password);
+    }
+
+    @Override
+    public boolean insertAdmin(String login, String password) {
+        return carsDao.insertAdmin(login,password);
+    }
+
+    @Override
+    public Admin getRoleName(Long id) {
+        return carsDao.getRoleName(id);
+    }
+
+    @Override
+    public List<Admin> findForLogin(String login,String password) {
+        return carsDao.findForLogin(login,password);
+    }
+
+    @Override
+    public Admin invalid(String body) {
+        return carsDao.invalid(body);
+    }
+
+    @Override
+    public Users selectUsersId(Long id) {
+        return carsDao.selectUsersId(id);
+    }
+
+    @Override
+    public Users getUser(Long userid) {
+        return carsDao.getUser(userid);
     }
 }
