@@ -32,4 +32,5 @@ public interface CarsMapper {
     Users selectUsersId(@Param("id") Long id);
     Admin invalid(@RequestBody String body);
     Users getUser(@Param("userid") Long userid);
+    Long insertCar(Cars cars);
 }

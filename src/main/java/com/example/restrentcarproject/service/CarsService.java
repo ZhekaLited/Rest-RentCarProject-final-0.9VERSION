@@ -25,6 +25,9 @@ public interface CarsService {
     boolean updateReason(Long id,String deviations,boolean disbalance);
     boolean updateBalance(Long id,Long balance,boolean disbalance);
     ImageCars[] selectCarImages(Long id);
+
+    Long insertCar(Cars cars);
+
     boolean insertAccount(String login,String password);
     boolean insertAdmin(String login,String password);
     Admin getRoleName(Long id);

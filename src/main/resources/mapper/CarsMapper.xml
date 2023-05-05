@@ -35,6 +35,11 @@
         VALUES (#{name}, #{surname},#{birthday},#{passid},#{balance},#{timearent},#{carsid},#{userid},'answer.png')
     </insert>
 
+    <insert id="insertCar" parameterType="Cars" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO "CarsModel"."CarsName" (price,name,model,image,release,kpp,dvigatel,mesta)
+        VALUES (#{price},#{name},#{model},#{image},#{release},#{kpp},#{dvigatel},#{mesta})
+    </insert>
+
     <select id="getRoleName" resultType="Admin">
         select "login"."UsersLogin"."id","login"."UsersLogin"."role" from "login"."UsersLogin" where id = #{id}
     </select>

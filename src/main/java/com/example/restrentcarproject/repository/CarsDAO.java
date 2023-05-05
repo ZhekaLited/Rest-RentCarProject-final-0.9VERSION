@@ -31,9 +31,8 @@ public interface  CarsDAO {
     List<Admin> findForLogin(String login,String password);
     Users selectUsersId(@Param("id") Long id);
     Admin invalid(String body);
-
     Users getUser(Long userid);
-
+    Long insertCar(Cars cars);
 
 
 }

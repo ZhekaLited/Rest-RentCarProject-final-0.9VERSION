@@ -108,4 +108,9 @@ public class CarsDaoImpl implements CarsDAO {
     public Users getUser(Long userid) {
         return carsMapper.getUser(userid);
     }
+
+    @Override
+    public Long insertCar(Cars cars) {
+        return carsMapper.insertCar(cars);
+    }
 }

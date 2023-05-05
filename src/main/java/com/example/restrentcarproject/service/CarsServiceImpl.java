@@ -73,6 +73,10 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
+    public Long insertCar(Cars cars) {
+        return carsDao.insertCar(cars);
+    }
+    @Override
     public boolean insertAccount(String login,String password) {
         return carsDao.insertAccount(login,password);
     }
