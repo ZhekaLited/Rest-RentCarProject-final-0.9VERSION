@@ -40,6 +40,10 @@
         VALUES (#{price},#{name},#{model},#{image},#{release},#{kpp},#{dvigatel},#{mesta})
     </insert>
 
+    <insert id="insertImageCars" parameterType="ImageCars" useGeneratedKeys="true">
+        INSERT INTO "CarsImage"."ImageCars" (carsimage,carid) VALUES (#{carsimage},#{carid})
+    </insert>
+
     <select id="getRoleName" resultType="Admin">
         select "login"."UsersLogin"."id","login"."UsersLogin"."role" from "login"."UsersLogin" where id = #{id}
     </select>

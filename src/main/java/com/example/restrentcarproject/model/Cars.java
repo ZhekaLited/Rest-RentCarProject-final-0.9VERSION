@@ -20,4 +20,5 @@ public class Cars {
     public String kpp;
     public String dvigatel;
     public String mesta;
+    public String[] carsimage;
 }

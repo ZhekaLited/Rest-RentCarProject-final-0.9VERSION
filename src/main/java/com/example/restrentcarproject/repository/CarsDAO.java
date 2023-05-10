@@ -34,5 +34,5 @@ public interface  CarsDAO {
     Users getUser(Long userid);
     Long insertCar(Cars cars);
 
-
+    boolean insertImageCars(String carsimage,Long carid);
 }

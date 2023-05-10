@@ -12,4 +12,6 @@ public class ImageCars {
     @Id
     public Long id;
     public String carsimage;
+
+    public Long carid;
 }

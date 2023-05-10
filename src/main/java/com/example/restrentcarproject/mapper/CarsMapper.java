@@ -33,4 +33,5 @@ public interface CarsMapper {
     Admin invalid(@RequestBody String body);
     Users getUser(@Param("userid") Long userid);
     Long insertCar(Cars cars);
+    boolean insertImageCars(@Param("carsimage") String carsimage,@Param("carid") Long carid);
 }

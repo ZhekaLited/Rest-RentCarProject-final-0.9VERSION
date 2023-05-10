@@ -113,4 +113,9 @@ public class CarsDaoImpl implements CarsDAO {
     public Long insertCar(Cars cars) {
         return carsMapper.insertCar(cars);
     }
+
+    @Override
+    public boolean insertImageCars(String carsimage, Long carid) {
+        return carsMapper.insertImageCars(carsimage,carid);
+    }
 }

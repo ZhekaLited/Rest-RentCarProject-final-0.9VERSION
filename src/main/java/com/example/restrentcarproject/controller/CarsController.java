@@ -178,10 +178,16 @@ public class CarsController {
     public Users getUser(Long userid) {
       return carsService.getUser(userid);
     }
+
     @PostMapping("/cars/addCar")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cars postCreateCar(@RequestBody Cars cars) throws SQLException {
+    public boolean postCreateCar(@RequestBody Cars cars) throws SQLException {
        carsService.insertCar(cars);
-        return cars;
+       Long id = cars.id;
+        for (String carsImage: cars.carsimage) {
+            String image = carsImage;
+            carsService.insertImageCars(image,id);
+        }
+       return true;
     }
 }

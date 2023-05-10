@@ -110,4 +110,9 @@ public class CarsServiceImpl implements CarsService {
     public Users getUser(Long userid) {
         return carsDao.getUser(userid);
     }
+
+    @Override
+    public boolean insertImageCars(String carsimage, Long carid) {
+        return carsDao.insertImageCars(carsimage,carid);
+    }
 }
