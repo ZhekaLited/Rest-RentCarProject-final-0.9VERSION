@@ -28,8 +28,18 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public boolean deleteUser(Long id) throws SQLException {
-        return carsDao.deleteUser(id);
+    public boolean deleteCars(Long id) throws SQLException {
+        return carsDao.deleteCars(id);
+    }
+
+    @Override
+    public Cars selectImage(Long id) {
+        return carsDao.selectImage(id);
+    }
+
+    @Override
+    public boolean deleteImageCars(Long id) {
+        return carsDao.deleteImageCars(id);
     }
 
     @Override
@@ -114,5 +124,30 @@ public class CarsServiceImpl implements CarsService {
     @Override
     public boolean insertImageCars(String carsimage, Long carid) {
         return carsDao.insertImageCars(carsimage,carid);
+    }
+
+    @Override
+    public List<Cars> selectAllCarsSort() {
+        return carsDao.selectAllCarsSort();
+    }
+
+    @Override
+    public boolean updateDamageCarsNull(Long id,boolean status) {
+        return carsDao.updateDamageCarsNull(id,status);
+    }
+
+    @Override
+    public boolean updateDamageCars(Long id,boolean status) {
+        return carsDao.updateDamageCars(id,status);
+    }
+
+    @Override
+    public ImageCars[] selectImages(Long id) {
+        return carsDao.selectImages(id);
+    }
+
+    @Override
+    public Admin getIdForLogin(String login) {
+        return carsDao.getIdForLogin(login);
     }
 }

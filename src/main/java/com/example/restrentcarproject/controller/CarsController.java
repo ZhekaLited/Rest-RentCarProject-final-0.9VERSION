@@ -1,5 +1,6 @@
 package com.example.restrentcarproject.controller;
 
+import com.example.restrentcarproject.imageStorage.FileStorageService;
 import com.example.restrentcarproject.model.Admin;
 import com.example.restrentcarproject.model.Cars;
 import com.example.restrentcarproject.model.ImageCars;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,37 +37,90 @@ public class CarsController {
         return carsService.selectAllCars();
     }
 
+    @GetMapping("/cars/allCarsSort")
+    List<Cars> selectAllCarsSort() {
+        return carsService.selectAllCarsSort();
+    }
+
     @PostMapping("/cars/add")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean postCreate(@RequestBody Users users) throws SQLException {
         return carsService.createUser(users);
     }
-
     @GetMapping("/cars/allUsers")
     List<Users> selectAllUsers() {
         return carsService.selectAllUsers();
     }
-
     @GetMapping("/cars/carsById")
     Cars selectCarById(Long id) {
         return carsService.selectCarById(id);
     }
-
     @DeleteMapping("/cars/remove")
     public boolean deleteUser(Long id) throws SQLException {
-        return carsService.deleteUser(id);
+        if(id != null){
+        carsService.deleteImageCars(id);
+        carsService.deleteCars(id);
+        } else {
+            System.out.println("Id not Found");
+        }
+        return true;
+    }
+
+    @GetMapping("/cars/getImage")
+    public boolean getImageCars(Long id) {
+        if(id != null) {
+        Cars image = carsService.selectImage(id);
+        String stringImageName = image.image;
+        File file = new File("D:/PhotosProject/" + stringImageName); //Удаление файлов из папок.По назначеному пути!!!
+        if(file.delete()){
+            System.out.println("D:/PhotosProject/" + stringImageName + " " + "File Delete");
+        }
+        else System.out.println("D:/PhotosProject/" + stringImageName + " " + "File Not Found");
+        }
+        return true;
+    }
+
+    @GetMapping("/cars/getImages")
+    public boolean getImagesCars(Long id) {
+            ImageCars[] stringImageName = carsService.selectImages(id);
+            for(ImageCars car: stringImageName) {
+                String image = car.carsimage;
+                String path = "D:/PhotosProject/";
+
+                File file = new File(path + image); //Удаление файлов из папок.По назначеному пути!!!
+                if (file.exists()) {
+                    if (file.delete()) {
+                        System.out.println(path + image + " " + "File Delete");
+                    }
+                } else {
+                    System.out.println(path + image + " " + "File Not Found");
+                }
+            }
+        return true;
     }
 
     @PutMapping("/cars/damage")
     public boolean updateDamage(@RequestParam("id") Long id) throws SQLException {
         return carsService.updateDamage(id);
     }
-
+    @PutMapping("/cars/damageCars")
+    public boolean updateDamageCars(@RequestParam("id") Long id,@RequestBody String jsonString) throws SQLException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(jsonString);
+        Boolean status = jsonNode.path("param").path("status").asBoolean();
+        return carsService.updateDamageCars(id,status);
+    }
+    @PutMapping("/cars/damageCarsNull")
+    public boolean updateDamageCarsNull(@RequestParam("id") Long id,@RequestBody String jsonString) throws SQLException, JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(jsonString);
+        Boolean status = jsonNode.path("param").path("status").asBoolean();
+        return carsService.updateDamageCarsNull(id,status);
+    }
     @PutMapping("/cars/damageNull")
     public boolean updateDamageNull(@RequestParam("id") Long id) {
         return carsService.updateDamagenull(id);
     }
-
     @PutMapping("/cars/Reason")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean updateReason(@RequestParam("id") Long id, @RequestBody String jsonString) throws SQLException, JsonProcessingException {
@@ -77,7 +132,6 @@ public class CarsController {
         Users users = mapper.readValue(deviations, Users.class);
         return carsService.updateReason(id, users.deviations, disbalance);
     }
-
     @PutMapping("/cars/balance")
     @ResponseStatus(HttpStatus.CREATED)
     public Long updateBalance(@RequestParam("id") Long id, @RequestBody String jsonString) throws IOException {
@@ -97,7 +151,6 @@ public class CarsController {
                 : 0;
     }
 // ? Это if // : Это else
-
     @GetMapping("/cars/images")
     List<String> selectCarImages(@RequestParam("id") Long id) {
         ImageCars[] cars = carsService.selectCarImages(id);
@@ -108,7 +161,6 @@ public class CarsController {
         }
         return result;
     }
-
     @PostMapping("/cars/addAcount")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean insertAccount(@RequestBody String body) throws JsonProcessingException {
@@ -119,7 +171,6 @@ public class CarsController {
         String encode = passwordEncoder.encode(password);
         return carsService.insertAccount(login, encode);
     }
-
     @PostMapping("/cars/addAdmin")
     public boolean insertAdmin(@RequestBody String body) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -189,5 +240,15 @@ public class CarsController {
             carsService.insertImageCars(image,id);
         }
        return true;
+    }
+
+    @PostMapping("/cars/addUserExists")
+    public boolean addUsersExists(@RequestBody String body) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(body);
+        String login = jsonNode.path("login").asText();
+        Admin idUser = carsService.getIdForLogin(login);
+        Long id = idUser.id;
+        return true;
     }
 }

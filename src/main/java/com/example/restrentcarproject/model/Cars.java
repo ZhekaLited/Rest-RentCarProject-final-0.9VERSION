@@ -21,4 +21,6 @@ public class Cars {
     public String dvigatel;
     public String mesta;
     public String[] carsimage;
+    public String damage;
+    public boolean status;
 }

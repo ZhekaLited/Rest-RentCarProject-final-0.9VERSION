@@ -16,7 +16,10 @@ public interface CarsService {
 
     List<Cars> selectAllCars();
     boolean createUser(Users users) throws SQLException;
-    boolean deleteUser(Long id) throws SQLException;
+    boolean deleteCars(Long id) throws SQLException;
+
+    Cars selectImage(Long id);
+    boolean deleteImageCars(Long id);
     List<Users> selectAllUsers();
     Cars selectCarById(Long id);
     Admin findByUserAuth(String username) throws ClassNotFoundException;
@@ -34,6 +37,15 @@ public interface CarsService {
     Admin invalid(String body);
     Users selectUsersId(@Param("id") Long id);
     Users getUser(Long userid);
-
     boolean insertImageCars(String carsimage,Long carid);
+
+    List<Cars> selectAllCarsSort();
+
+    boolean updateDamageCarsNull(Long id,boolean status);
+
+    boolean updateDamageCars(Long id,boolean status);
+
+    ImageCars[] selectImages (Long id);
+
+    Admin getIdForLogin (String login);
 }

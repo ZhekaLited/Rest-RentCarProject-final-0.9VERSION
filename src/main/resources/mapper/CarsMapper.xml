@@ -11,6 +11,13 @@
     <select id="selectAllCars" resultType="Cars">
         select *
         from "CarsModel"."CarsName"
+        ORDER BY "CarsModel"."CarsName"."id";
+    </select>
+
+    <select id="selectAllCarsSort" resultType="Cars">
+        select *
+        from "CarsModel"."CarsName"
+        ORDER BY "CarsModel"."CarsName"."id" DESC;
     </select>
 
     <select id="getAllLogin" resultType="Admin">
@@ -71,7 +78,8 @@
                "CarsModel"."CarsName"."price"
         from "authorization"."UsersData"
                  INNER JOIN "CarsModel"."CarsName" ON
-            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id";
+            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id"
+        ORDER BY "authorization"."UsersData"."id" DESC;
     </select>
 
     <select id="selectCarById" resultType="Cars">
@@ -90,6 +98,14 @@
         select * from "authorization"."UsersData" where id=#{id};
     </select>
 
+    <select id="selectImage" resultType="Cars">
+        select "CarsModel"."CarsName"."image" from "CarsModel"."CarsName" where id = #{id}
+    </select>
+
+        <select id="selectImages" resultType="ImageCars">
+        select "CarsImage"."ImageCars"."carsimage" from "CarsImage"."ImageCars" where carid= #{id}
+        </select>
+
     <select id="carsId" resultType="Cars">
         SELECT "cars_names"."name", "cars_names"."model"
         FROM "authorization"."UsersData" AS "users",
@@ -100,6 +116,20 @@
     <update id="updateDamage">
         UPDATE "authorization"."UsersData"
         SET damage = 'damage.png'
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateDamageCars">
+        UPDATE "CarsModel"."CarsName"
+        SET damage = 'damage.png',
+            status = #{status}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateDamageCarsNull">
+        UPDATE "CarsModel"."CarsName"
+        SET damage = '',
+            status = #{status}
         WHERE id = #{id};
     </update>
 
@@ -125,10 +155,18 @@
         WHERE id = #{id};
     </update>
 
-    <delete id="deleteUser">
+    <delete id="deleteCars">
         DELETE
-        FROM "authorization"."UsersData"
-        WHERE "authorization"."UsersData"."id" = #{id}
+        FROM "CarsModel"."CarsName"
+        WHERE id = #{id}
     </delete>
+
+    <delete id="deleteImageCars">
+        delete from "CarsImage"."ImageCars" where carid = #{id}
+    </delete>
+
+    <select id="getIdForLogin" resultType="Admin">
+        select "login"."UsersLogin"."id" from "login"."UsersLogin" where login = #{login}
+    </select>
 
 </mapper>

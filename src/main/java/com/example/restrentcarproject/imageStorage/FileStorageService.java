@@ -1,11 +1,11 @@
 package com.example.restrentcarproject.imageStorage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,6 +18,35 @@ import java.nio.file.StandardCopyOption;
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+
+// Варинт ЦИКЛА номер 2 . Не правильно работает добавляет [ !!!!!!!!!!!!!!!!!
+//   public int[] randomNumber() {
+//       final int SIZE = 10000;
+//       int[] arr = new int[SIZE];
+//       boolean alreadythere;
+//
+//       for (int i = 0; i < SIZE; i++) {
+//           alreadythere = false;
+//           int newRandomValue = (int) (Math.random() * 20);   //Случайные числа [1;20]
+//           arr[i] = newRandomValue;
+//           for (int j = 0; j <= i; j++) {
+//               if (arr[j] == newRandomValue) {
+//                   alreadythere = true;
+//                   break;
+//               }
+//           }
+//           if (!alreadythere)
+//               arr[i] = newRandomValue;
+//       }
+//       return arr;
+//   }
+
+    public int randomNumber() {
+        int min = 50;
+        int max = 100000;
+        int random_int = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        return  random_int;
+    }
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -33,11 +62,11 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName =  randomNumber() + StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
             // Check if the file's name contains invalid characters
-            if(fileName.contains("..")) {
+            if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
@@ -55,7 +84,7 @@ public class FileStorageService {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
+            if (resource.exists()) {
                 return resource;
             } else {
                 throw new MyFileNotFoundException("File not found " + fileName);

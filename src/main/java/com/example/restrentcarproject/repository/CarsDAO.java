@@ -15,24 +15,54 @@ import java.util.List;
 public interface  CarsDAO {
 
     List<Cars> selectAllCars();
+
     boolean createUser(Users users) throws SQLException;
+
     List<Users> selectAllUsers();
-    Cars selectCarById (Long id);
+
+    Cars selectCarById(Long id);
+
     Admin findByUserAuth(String username) throws ClassNotFoundException;
-    boolean deleteUser(Long id) throws SQLException;
+
+    boolean deleteCars(Long id) throws SQLException;
+
+    boolean deleteImageCars(Long id);
+
     boolean updateDamage(Long id) throws SQLException;
+
     boolean updateDamagenull(Long id);
-    boolean updateReason(Long id,String deviations,boolean disbalance);
-    boolean updateBalance(Long id,Long balance,boolean disbalance);
+
+    boolean updateReason(Long id, String deviations, boolean disbalance);
+
+    boolean updateBalance(Long id, Long balance, boolean disbalance);
+
     ImageCars[] selectCarImages(Long id);
-    boolean insertAccount(String login,String password);
-    boolean insertAdmin(String login,String password);
+
+    boolean insertAccount(String login, String password);
+
+    boolean insertAdmin(String login, String password);
+
     Admin getRoleName(Long id);
-    List<Admin> findForLogin(String login,String password);
+
+    List<Admin> findForLogin(String login, String password);
+
     Users selectUsersId(@Param("id") Long id);
+
     Admin invalid(String body);
+
     Users getUser(Long userid);
+
     Long insertCar(Cars cars);
 
-    boolean insertImageCars(String carsimage,Long carid);
+    boolean insertImageCars(String carsimage, Long carid);
+
+    boolean updateDamageCars(Long id, boolean status);
+
+    boolean updateDamageCarsNull(Long id, boolean status);
+
+    List<Cars> selectAllCarsSort();
+
+    Cars selectImage(Long id);
+    ImageCars[] selectImages(Long id);
+    Admin getIdForLogin (String login);
 }
