@@ -39,9 +39,8 @@ public interface CarsMapper {
     List<Admin> findForLogin(@Param("login") String login,@Param("password") String password);
     Users selectUsersId(@Param("id") Long id);
     Admin invalid(@RequestBody String body);
-    Users getUser(@Param("userid") Long userid);
+    List<Users> getUser(@Param("userid") Long userid);
     Long insertCar(Cars cars);
     boolean insertImageCars(@Param("carsimage") String carsimage,@Param("carid") Long carid);
-
-    Admin getIdForLogin (@Param("login") String login);
+    Users getIdForUser (@Param("id") Long id);
 }

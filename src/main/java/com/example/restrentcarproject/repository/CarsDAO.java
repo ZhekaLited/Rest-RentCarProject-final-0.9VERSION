@@ -50,7 +50,7 @@ public interface  CarsDAO {
 
     Admin invalid(String body);
 
-    Users getUser(Long userid);
+    List<Users> getUser(Long userid);
 
     Long insertCar(Cars cars);
 
@@ -64,5 +64,5 @@ public interface  CarsDAO {
 
     Cars selectImage(Long id);
     ImageCars[] selectImages(Long id);
-    Admin getIdForLogin (String login);
+    Users getIdForUser (Long id);
 }

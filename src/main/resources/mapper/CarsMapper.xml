@@ -34,7 +34,7 @@
         from "authorization"."UsersData"
                  INNER JOIN "CarsModel"."CarsName" ON
             "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id"
-        where userid = #{userid};
+        where userid = #{userid} ORDER BY "authorization"."UsersData"."id" DESC;
 </select>
 
     <insert id="insertUser" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
@@ -165,8 +165,8 @@
         delete from "CarsImage"."ImageCars" where carid = #{id}
     </delete>
 
-    <select id="getIdForLogin" resultType="Admin">
-        select "login"."UsersLogin"."id" from "login"."UsersLogin" where login = #{login}
+    <select id="getIdForUser" resultType="Users">
+        select * from "authorization"."UsersData" where userid = #{id} ORDER BY "authorization"."UsersData"."id" DESC LIMIT 1;
     </select>
 
 </mapper>

@@ -110,7 +110,7 @@ public class CarsDaoImpl implements CarsDAO {
     }
 
     @Override
-    public Users getUser(Long userid) {
+    public  List<Users> getUser(Long userid) {
         return carsMapper.getUser(userid);
     }
 
@@ -150,7 +150,7 @@ public class CarsDaoImpl implements CarsDAO {
     }
 
     @Override
-    public Admin getIdForLogin(String login) {
-        return carsMapper.getIdForLogin(login);
+    public Users getIdForUser(Long id) {
+        return carsMapper.getIdForUser(id);
     }
 }

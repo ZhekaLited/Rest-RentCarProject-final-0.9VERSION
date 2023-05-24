@@ -36,7 +36,7 @@ public interface CarsService {
     List<Admin> findForLogin(String login,String password);
     Admin invalid(String body);
     Users selectUsersId(@Param("id") Long id);
-    Users getUser(Long userid);
+    List<Users> getUser(Long userid);
     boolean insertImageCars(String carsimage,Long carid);
 
     List<Cars> selectAllCarsSort();
@@ -47,5 +47,5 @@ public interface CarsService {
 
     ImageCars[] selectImages (Long id);
 
-    Admin getIdForLogin (String login);
+    Users getIdForUser (Long id);
 }

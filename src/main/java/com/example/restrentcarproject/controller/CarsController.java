@@ -226,7 +226,7 @@ public class CarsController {
         return carsService.invalid(login);
     }
     @GetMapping("/cars/getIdUser")
-    public Users getUser(Long userid) {
+    public List<Users> getUser(Long userid) {
       return carsService.getUser(userid);
     }
 
@@ -242,13 +242,8 @@ public class CarsController {
        return true;
     }
 
-    @PostMapping("/cars/addUserExists")
-    public boolean addUsersExists(@RequestBody String body) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(body);
-        String login = jsonNode.path("login").asText();
-        Admin idUser = carsService.getIdForLogin(login);
-        Long id = idUser.id;
-        return true;
+    @GetMapping("/cars/userById")
+    Users getIdForUser(Long id) {
+        return carsService.getIdForUser(id);
     }
 }

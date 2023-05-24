@@ -117,7 +117,7 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public Users getUser(Long userid) {
+    public List<Users> getUser(Long userid) {
         return carsDao.getUser(userid);
     }
 
@@ -147,7 +147,7 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public Admin getIdForLogin(String login) {
-        return carsDao.getIdForLogin(login);
+    public Users getIdForUser(Long id) {
+        return carsDao.getIdForUser(id);
     }
 }
