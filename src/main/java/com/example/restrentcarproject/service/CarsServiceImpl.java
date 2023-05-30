@@ -6,6 +6,9 @@ import com.example.restrentcarproject.model.ImageCars;
 import com.example.restrentcarproject.model.Users;
 import com.example.restrentcarproject.repository.CarsDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -43,8 +46,13 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public List<Users> selectAllUsers() {
-        return carsDao.selectAllUsers();
+    public List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc) {
+        return carsDao.selectAllUsers(rowNumber,pageSize,desc);
+    }
+
+    @Override
+    public Long countUsers() {
+        return carsDao.countUsers();
     }
 
     @Override
@@ -58,13 +66,13 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public boolean updateDamage(Long id) throws SQLException {
-        return carsDao.updateDamage(id);
+    public void updateDamage(Long id) throws SQLException {
+         carsDao.updateDamage(id);
     }
 
     @Override
-    public boolean updateDamagenull(Long id) {
-        return carsDao.updateDamagenull(id);
+    public void updateDamagenull(Long id) {
+         carsDao.updateDamagenull(id);
     }
 
     @Override

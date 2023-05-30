@@ -16,17 +16,17 @@ public interface CarsMapper {
     List<Cars> selectAllCars();
     List<Cars> selectAllCarsSort();
     boolean insertUser(Users users);
-    List<Users> selectAllUsers();
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+    Long countUsers();
     boolean deleteCars(@Param("id") Long id);
-
     Cars selectImage(@Param("id") Long id);
     boolean deleteImageCars(@Param("id") Long id);
     Cars selectCarById(@Param("id") Long id);
     Admin getAllLogin(@Param("username") String username);
-    boolean updateDamage(@Param("id") Long id);
+    void updateDamage(@Param("id") Long id);
     boolean updateDamageCars(@Param("id") Long id, boolean status);
     boolean updateDamageCarsNull(@Param("id") Long id,boolean status);
-    boolean updateDamagenull(@Param("id") Long id);
+    void updateDamagenull(@Param("id") Long id);
     boolean updateReason(@Param("id") Long id,@RequestBody String deviations,boolean disbalance);
     boolean updateBalance(@Param("id") Long id,@RequestBody Long balance, boolean disbalance);
     boolean updateDamageButton(@Param("id") Long id,boolean disbalance);

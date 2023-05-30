@@ -5,6 +5,9 @@ import com.example.restrentcarproject.model.Cars;
 import com.example.restrentcarproject.model.ImageCars;
 import com.example.restrentcarproject.model.Users;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,7 +21,9 @@ public interface  CarsDAO {
 
     boolean createUser(Users users) throws SQLException;
 
-    List<Users> selectAllUsers();
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+
+    Long countUsers();
 
     Cars selectCarById(Long id);
 
@@ -28,9 +33,9 @@ public interface  CarsDAO {
 
     boolean deleteImageCars(Long id);
 
-    boolean updateDamage(Long id) throws SQLException;
+    void updateDamage(Long id) throws SQLException;
 
-    boolean updateDamagenull(Long id);
+    void updateDamagenull(Long id);
 
     boolean updateReason(Long id, String deviations, boolean disbalance);
 

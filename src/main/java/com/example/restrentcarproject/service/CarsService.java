@@ -5,8 +5,9 @@ import com.example.restrentcarproject.model.Cars;
 import com.example.restrentcarproject.model.ImageCars;
 import com.example.restrentcarproject.model.Users;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,11 +21,13 @@ public interface CarsService {
 
     Cars selectImage(Long id);
     boolean deleteImageCars(Long id);
-    List<Users> selectAllUsers();
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+
+    Long countUsers();
     Cars selectCarById(Long id);
     Admin findByUserAuth(String username) throws ClassNotFoundException;
-    boolean updateDamage(Long id) throws SQLException;
-    boolean updateDamagenull(Long id);
+    void updateDamage(Long id) throws SQLException;
+    void updateDamagenull(Long id);
     boolean updateReason(Long id,String deviations,boolean disbalance);
     boolean updateBalance(Long id,Long balance,boolean disbalance);
     ImageCars[] selectCarImages(Long id);

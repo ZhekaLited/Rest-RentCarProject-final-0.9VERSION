@@ -33,42 +33,54 @@
                "CarsModel"."CarsName"."price"
         from "authorization"."UsersData"
                  INNER JOIN "CarsModel"."CarsName" ON
-            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id"
-        where userid = #{userid} ORDER BY "authorization"."UsersData"."id" DESC;
-</select>
+            "authorization"."UsersData"."carsid" = "CarsModel"."CarsName"."id"
+        where userid = #{userid}
+        ORDER BY "authorization"."UsersData"."id" DESC;
+    </select>
 
     <insert id="insertUser" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
-        INSERT INTO "authorization"."UsersData" (name, surname, birthday, passid, balance, timearent,carsid,userid,status)
-        VALUES (#{name}, #{surname},#{birthday},#{passid},#{balance},#{timearent},#{carsid},#{userid},'answer.png')
+        INSERT INTO "authorization"."UsersData" (name, surname, birthday, passid, balance, timearent, carsid, userid,
+                                                 status)
+        VALUES (#{name}, #{surname}, #{birthday}, #{passid}, #{balance}, #{timearent}, #{carsid}, #{userid},
+                'answer.png')
     </insert>
 
     <insert id="insertCar" parameterType="Cars" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO "CarsModel"."CarsName" (price,name,model,image,release,kpp,dvigatel,mesta)
-        VALUES (#{price},#{name},#{model},#{image},#{release},#{kpp},#{dvigatel},#{mesta})
+        INSERT INTO "CarsModel"."CarsName" (price, name, model, image, release, kpp, dvigatel, mesta)
+        VALUES (#{price}, #{name}, #{model}, #{image}, #{release}, #{kpp}, #{dvigatel}, #{mesta})
     </insert>
 
     <insert id="insertImageCars" parameterType="ImageCars" useGeneratedKeys="true">
-        INSERT INTO "CarsImage"."ImageCars" (carsimage,carid) VALUES (#{carsimage},#{carid})
+        INSERT INTO "CarsImage"."ImageCars" (carsimage, carid)
+        VALUES (#{carsimage}, #{carid})
     </insert>
 
     <select id="getRoleName" resultType="Admin">
-        select "login"."UsersLogin"."id","login"."UsersLogin"."role" from "login"."UsersLogin" where id = #{id}
+        select "login"."UsersLogin"."id", "login"."UsersLogin"."role"
+        from "login"."UsersLogin"
+        where id = #{id}
     </select>
 
     <select id="findForLogin" resultType="Admin">
-        select * from "login"."UsersLogin" where login = #{login}
+        select *
+        from "login"."UsersLogin"
+        where login = #{login}
     </select>
 
-   <select id="invalid" resultType="Admin">
-        select * from "login"."UsersLogin" where login = #{login}
+    <select id="invalid" resultType="Admin">
+        select *
+        from "login"."UsersLogin"
+        where login = #{login}
     </select>
 
     <insert id="insertAccount" parameterType="Admin" useGeneratedKeys="false" keyProperty="id">
-        insert into "login"."UsersLogin"(login,password,role) values (#{login},#{password},'USER')
+        insert into "login"."UsersLogin"(login, password, role)
+        values (#{login}, #{password}, 'USER')
     </insert>
 
     <insert id="insertAdmin" parameterType="Admin" useGeneratedKeys="false" keyProperty="id">
-        insert into "login"."UsersLogin"(login,password,role) values (#{login},#{password},'ADMIN')
+        insert into "login"."UsersLogin"(login, password, role)
+        values (#{login}, #{password}, 'ADMIN')
     </insert>
 
     <select id="selectAllUsers" resultType="Users">
@@ -78,12 +90,20 @@
                "CarsModel"."CarsName"."price"
         from "authorization"."UsersData"
                  INNER JOIN "CarsModel"."CarsName" ON
-            "authorization"."UsersData"."carsid" ="CarsModel"."CarsName"."id"
-        ORDER BY "authorization"."UsersData"."id" DESC;
+            "authorization"."UsersData"."carsid" = "CarsModel"."CarsName"."id"
+        ORDER BY "authorization"."UsersData"."id" ${desc} limit #{pageSize}
+        offset #{rowNumber};
+    </select>
+
+    <select id="countUsers" resultType="Long">
+        select COUNT(*)
+        from "authorization"."UsersData";
     </select>
 
     <select id="selectCarById" resultType="Cars">
-        select * from "CarsModel"."CarsName" where id=#{id};
+        select *
+        from "CarsModel"."CarsName"
+        where id = #{id};
     </select>
 
     <select id="selectCarImages" resultType="ImageCars">
@@ -91,26 +111,32 @@
         from "CarsModel"."CarsName"
                  INNER JOIN "CarsImage"."ImageCars" ON
             "CarsModel"."CarsName"."id" = "CarsImage"."ImageCars"."carid"
-        where "CarsModel"."CarsName"."id"=#{id};
+        where "CarsModel"."CarsName"."id" = #{id};
     </select>
 
     <select id="selectUsersId" resultType="Users">
-        select * from "authorization"."UsersData" where id=#{id};
+        select *
+        from "authorization"."UsersData"
+        where id = #{id};
     </select>
 
     <select id="selectImage" resultType="Cars">
-        select "CarsModel"."CarsName"."image" from "CarsModel"."CarsName" where id = #{id}
+        select "CarsModel"."CarsName"."image"
+        from "CarsModel"."CarsName"
+        where id = #{id}
     </select>
 
-        <select id="selectImages" resultType="ImageCars">
-        select "CarsImage"."ImageCars"."carsimage" from "CarsImage"."ImageCars" where carid= #{id}
-        </select>
+    <select id="selectImages" resultType="ImageCars">
+        select "CarsImage"."ImageCars"."carsimage"
+        from "CarsImage"."ImageCars"
+        where carid = #{id}
+    </select>
 
     <select id="carsId" resultType="Cars">
         SELECT "cars_names"."name", "cars_names"."model"
         FROM "authorization"."UsersData" AS "users",
              "CarsModel"."CarsName" AS "cars_names"
-             where "users"."carsid" = #{carsid};
+        where "users"."carsid" = #{carsid};
     </select>
 
     <update id="updateDamage">
@@ -143,15 +169,15 @@
         UPDATE "authorization"."UsersData"
         SET deviations = #{deviations},
             disbalance = #{disbalance},
-            status = 'reject.png'
+            status     = 'reject.png'
         WHERE id = #{id};
     </update>
 
     <update id="updateBalance" parameterType="Users" useGeneratedKeys="false" keyProperty="id">
         UPDATE "authorization"."UsersData"
-        SET balance = #{balance},
+        SET balance    = #{balance},
             disbalance = #{disbalance},
-            status = 'suc.png'
+            status     = 'suc.png'
         WHERE id = #{id};
     </update>
 
@@ -162,11 +188,16 @@
     </delete>
 
     <delete id="deleteImageCars">
-        delete from "CarsImage"."ImageCars" where carid = #{id}
+        delete
+        from "CarsImage"."ImageCars"
+        where carid = #{id}
     </delete>
 
     <select id="getIdForUser" resultType="Users">
-        select * from "authorization"."UsersData" where userid = #{id} ORDER BY "authorization"."UsersData"."id" DESC LIMIT 1;
+        select *
+        from "authorization"."UsersData"
+        where userid = #{id}
+        ORDER BY "authorization"."UsersData"."id" DESC LIMIT 1;
     </select>
 
 </mapper>
