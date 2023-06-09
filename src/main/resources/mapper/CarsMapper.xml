@@ -28,7 +28,7 @@
 
     <select id="getUser" resultType="Users">
         select "authorization"."UsersData".*,
-               "CarsModel"."CarsName"."name" AS nameCars,
+               "CarsModel"."CarsName"."namecars",
                "CarsModel"."CarsName"."model",
                "CarsModel"."CarsName"."price"
         from "authorization"."UsersData"
@@ -46,8 +46,8 @@
     </insert>
 
     <insert id="insertCar" parameterType="Cars" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO "CarsModel"."CarsName" (price, name, model, image, release, kpp, dvigatel, mesta)
-        VALUES (#{price}, #{name}, #{model}, #{image}, #{release}, #{kpp}, #{dvigatel}, #{mesta})
+        INSERT INTO "CarsModel"."CarsName" (price, namecars, model, image, release, kpp, dvigatel, mesta)
+        VALUES (#{price}, #{namecars}, #{model}, #{image}, #{release}, #{kpp}, #{dvigatel}, #{mesta})
     </insert>
 
     <insert id="insertImageCars" parameterType="ImageCars" useGeneratedKeys="true">
@@ -59,6 +59,11 @@
         select "login"."UsersLogin"."id", "login"."UsersLogin"."role"
         from "login"."UsersLogin"
         where id = #{id}
+    </select>
+
+    <select id="findForIdLogin" resultType="Admin">
+        select *
+        from "login"."UsersLogin" where id = #{userid}
     </select>
 
     <select id="findForLogin" resultType="Admin">
@@ -85,13 +90,25 @@
 
     <select id="selectAllUsers" resultType="Users">
         select "authorization"."UsersData".*,
-               "CarsModel"."CarsName"."name" AS nameCars,
+               "CarsModel"."CarsName"."namecars",
                "CarsModel"."CarsName"."model",
                "CarsModel"."CarsName"."price"
         from "authorization"."UsersData"
                  INNER JOIN "CarsModel"."CarsName" ON
             "authorization"."UsersData"."carsid" = "CarsModel"."CarsName"."id"
-        ORDER BY "authorization"."UsersData"."id" ${desc} limit #{pageSize}
+        ORDER BY "authorization"."UsersData".${sortField} ${desc} limit #{pageSize}
+        offset #{rowNumber};
+    </select>
+
+    <select id="selectAllUsersSortCars" resultType="Users">
+        select "authorization"."UsersData".*,
+               "CarsModel"."CarsName"."namecars",
+               "CarsModel"."CarsName"."model",
+               "CarsModel"."CarsName"."price"
+        from "authorization"."UsersData"
+                 INNER JOIN "CarsModel"."CarsName" ON
+            "authorization"."UsersData"."carsid" = "CarsModel"."CarsName"."id"
+        ORDER BY "CarsModel"."CarsName".${sortField} ${desc} limit #{pageSize}
         offset #{rowNumber};
     </select>
 
@@ -133,7 +150,7 @@
     </select>
 
     <select id="carsId" resultType="Cars">
-        SELECT "cars_names"."name", "cars_names"."model"
+        SELECT "cars_names"."namecars", "cars_names"."model"
         FROM "authorization"."UsersData" AS "users",
              "CarsModel"."CarsName" AS "cars_names"
         where "users"."carsid" = #{carsid};

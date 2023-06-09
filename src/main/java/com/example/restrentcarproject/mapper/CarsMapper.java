@@ -16,7 +16,8 @@ public interface CarsMapper {
     List<Cars> selectAllCars();
     List<Cars> selectAllCarsSort();
     boolean insertUser(Users users);
-    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc,String sortField);
+    List<Users> selectAllUsersSortCars(Long rowNumber,Long pageSize,String desc,String sortField);
     Long countUsers();
     boolean deleteCars(@Param("id") Long id);
     Cars selectImage(@Param("id") Long id);
@@ -43,4 +44,5 @@ public interface CarsMapper {
     Long insertCar(Cars cars);
     boolean insertImageCars(@Param("carsimage") String carsimage,@Param("carid") Long carid);
     Users getIdForUser (@Param("id") Long id);
+    Admin findForIdLogin(@Param("userid") Long userid);
 }

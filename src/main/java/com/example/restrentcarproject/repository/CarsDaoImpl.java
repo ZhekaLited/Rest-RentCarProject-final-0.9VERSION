@@ -32,8 +32,13 @@ public class CarsDaoImpl implements CarsDAO {
     }
 
     @Override
-    public List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc) {
-        return carsMapper.selectAllUsers(rowNumber,pageSize,desc);
+    public List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc,String sortField) {
+        return carsMapper.selectAllUsers(rowNumber,pageSize,desc,sortField);
+    }
+
+    @Override
+    public List<Users> selectAllUsersSortCars(Long rowNumber, Long pageSize, String desc, String sortField) {
+        return carsMapper.selectAllUsersSortCars(rowNumber,pageSize,desc,sortField);
     }
 
     @Override
@@ -160,5 +165,10 @@ public class CarsDaoImpl implements CarsDAO {
     @Override
     public Users getIdForUser(Long id) {
         return carsMapper.getIdForUser(id);
+    }
+
+    @Override
+    public Admin findForIdLogin(Long userid) {
+        return carsMapper.findForIdLogin(userid);
     }
 }

@@ -21,8 +21,9 @@ public interface CarsService {
 
     Cars selectImage(Long id);
     boolean deleteImageCars(Long id);
-    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc,String sortField);
 
+    List<Users> selectAllUsersSortCars(Long rowNumber,Long pageSize,String desc,String sortField);
     Long countUsers();
     Cars selectCarById(Long id);
     Admin findByUserAuth(String username) throws ClassNotFoundException;
@@ -51,4 +52,6 @@ public interface CarsService {
     ImageCars[] selectImages (Long id);
 
     Users getIdForUser (Long id);
+
+    Admin findForIdLogin(Long userid);
 }

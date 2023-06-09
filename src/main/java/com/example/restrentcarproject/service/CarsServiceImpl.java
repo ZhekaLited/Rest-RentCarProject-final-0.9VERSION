@@ -46,8 +46,13 @@ public class CarsServiceImpl implements CarsService {
     }
 
     @Override
-    public List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc) {
-        return carsDao.selectAllUsers(rowNumber,pageSize,desc);
+    public List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc,String sortField) {
+        return carsDao.selectAllUsers(rowNumber,pageSize,desc,sortField);
+    }
+
+    @Override
+    public List<Users> selectAllUsersSortCars(Long rowNumber, Long pageSize, String desc, String sortField) {
+        return carsDao.selectAllUsersSortCars(rowNumber, pageSize, desc, sortField);
     }
 
     @Override
@@ -157,5 +162,10 @@ public class CarsServiceImpl implements CarsService {
     @Override
     public Users getIdForUser(Long id) {
         return carsDao.getIdForUser(id);
+    }
+
+    @Override
+    public Admin findForIdLogin(Long userid) {
+        return carsDao.findForIdLogin(userid);
     }
 }

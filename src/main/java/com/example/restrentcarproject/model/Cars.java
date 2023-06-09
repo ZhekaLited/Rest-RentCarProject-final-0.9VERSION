@@ -13,7 +13,7 @@ public class Cars {
     @Id
     public Long id;
     public Long price;
-    public String name;
+    public String namecars;
     public String model;
     public String image;
     public String release;

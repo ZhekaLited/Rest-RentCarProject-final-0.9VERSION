@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -52,8 +53,15 @@ public class CarsController {
     }
 
     @GetMapping("/cars/allUsers")
-    List<Users> selectAllUsers(Long rowNumber, Long pageSize,String desc) {
-        List<Users> usersList = carsService.selectAllUsers(rowNumber, pageSize,desc);
+    List<Users> selectAllUsers(Long rowNumber, Long pageSize, String desc, String sortField) {
+        String a = "namecars";
+        String b = "model";
+        String c = "price";
+        if (sortField.equals(a) || sortField.equals(b) || sortField.equals(c)) {
+            List<Users> usersList = carsService.selectAllUsersSortCars(rowNumber, pageSize, desc, sortField);
+            return usersList;
+        }
+        List<Users> usersList = carsService.selectAllUsers(rowNumber, pageSize, desc, sortField);
         return usersList;
     }
 
@@ -69,14 +77,14 @@ public class CarsController {
     }
 
     @DeleteMapping("/cars/remove")
-    public boolean deleteUser(Long id) throws SQLException {
+    public String deleteUser(Long id) throws SQLException {
         if (id != null) {
             carsService.deleteImageCars(id);
             carsService.deleteCars(id);
         } else {
             System.out.println("Id not Found");
         }
-        return true;
+        return "";
     }
 
     @GetMapping("/cars/getImage")
@@ -136,7 +144,7 @@ public class CarsController {
     @PutMapping("/cars/damageNull")
     public String updateDamageNull(@RequestParam("id") Long id) {
         carsService.updateDamagenull(id);
-        return  "{\"image\":\"\"}";
+        return "{\"image\":\"\"}";
     }
 
     @PutMapping("/cars/Reason")
@@ -267,5 +275,11 @@ public class CarsController {
     @GetMapping("/cars/userById")
     Users getIdForUser(Long id) {
         return carsService.getIdForUser(id);
+    }
+
+    @GetMapping("/cars/userLoginForId")
+    Admin findForIdLogin(Long userid) {
+        Admin user = carsService.findForIdLogin(userid);
+        return user;
     }
 }

@@ -21,8 +21,9 @@ public interface  CarsDAO {
 
     boolean createUser(Users users) throws SQLException;
 
-    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc);
+    List<Users> selectAllUsers(Long rowNumber,Long pageSize,String desc,String sortField);
 
+    List<Users> selectAllUsersSortCars(Long rowNumber,Long pageSize,String desc,String sortField);
     Long countUsers();
 
     Cars selectCarById(Long id);
@@ -70,4 +71,6 @@ public interface  CarsDAO {
     Cars selectImage(Long id);
     ImageCars[] selectImages(Long id);
     Users getIdForUser (Long id);
+
+    Admin findForIdLogin(Long userid);
 }
